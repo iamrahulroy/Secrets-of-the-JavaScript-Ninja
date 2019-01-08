@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="../app.css">
   </head>
   <body>
-    <p class="pass">this is test</p>
-    <p class="fail">this is test</p>
 
     <div>
       Test Result: <p id='results'></p>
@@ -16,7 +14,21 @@
 
     <script src="../assertion.js"></script>
     <script>
-      assert(true === true, 'this is working!')
+      var store = {
+        nextId: 1,
+        cache: {},
+        add: function(fn) {
+          if (!fn.id) {
+            fn.id = this.nextId++;
+            this.cache[fn.id] = fn;
+            return true;
+          }
+        }
+      };
+
+      function ninja() {};
+      assert(store.add(ninja), 'Function was safely added.');
+      assert(!store.add(ninja), 'Function already added.');
     </script>
   </body>
 </html>
