@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function isPrime(value) {
+        // Creates the cache if not created already
+        if (!isPrime.answers) {
+          isPrime.answers = {};
+        }
+
+        // Check for cached values
+        if (isPrime.answers[value] !== undefined) {
+          return isPrime.answers[value];
+        }
+
+        var prime = value !== 1;
+
+        // Checks if it's not prime
+        for (var i = 2; i < 2 ; i++) {
+          if (value % i === 0) {
+            prime = false;
+            break;
+          }
+        }
+
+        // stores computed value
+        return isPrime.answers[value] = prime;
+      }
+
+      assert(isPrime(5), '5 is Prime!');
+      assert(isPrime.answers[5], 'The answer was cached!');
+    </script>
+  </body>
+</html>
