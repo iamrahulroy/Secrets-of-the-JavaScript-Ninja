@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Using rest parameters
+      function multiMax(first, ...remainingNumbers) { // rest parameters are prefixed with ...
+        var sorted = remainingNumbers.sort(function(a, b) {
+          return b - a; // sort the remainingNumbers in descending
+        });
+        return first * sorted[0];
+      };
+      assert(multiMax(3, 1, 2, 3) === 9, '3*3=9 (First arg, by largest.)');
+
+      // Tackling default parameters before ES6
+      function performAction(ninja, action) {
+        action = typeof action === 'undefined' ? 'skulking' : action;
+        return ninja + ' ' + action;
+      }
+
+      assert(performAction('Fuma') === 'Fuma skulking', 'The default value is used for Fuma');
+      assert(performAction('Yoshi') === 'Yoshi skulking', 'The default value is used for Fuma');
+      assert(performAction('Hattori') === 'Hattori skulking', 'The default value is used for Fuma');
+      assert(performAction('Yagyu', 'sneaking') === 'Yagyu sneaking', 'Yagyu can do whatever he pleases, even sneak!');
+
+      // Tackling default parameters in ES6
+      function performActionES6(ninja, action = 'skulking') {
+        return ninja + ' ' + action;
+      }
+
+      assert(performActionES6('Fuma') === 'Fuma skulking', 'ES6: The default value is used for Fuma');
+      assert(performActionES6('Yoshi') === 'Yoshi skulking', 'ES6: The default value is used for Fuma');
+      assert(performActionES6('Hattori') === 'Hattori skulking', 'ES6: The default value is used for Fuma');
+      assert(performActionES6('Yagyu', 'sneaking') === 'Yagyu sneaking', 'ES6: Yagyu can do whatever he pleases, even sneak!');
+
+      // Referencing previous default parameters
+      function performActionReferencingParameter(ninja, action = 'skulking', message = ninja + ' ' + action) {
+        return message;
+      }
+
+      assert(performAction("Yoshi") === "Yoshi skulking", "Yoshi is skulking");
+    </script>
+  </body>
+</html>
