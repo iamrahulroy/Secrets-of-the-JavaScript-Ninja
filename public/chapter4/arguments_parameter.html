@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Using the arguments parameter
+      function whatever(a, b, c) {
+        assert(a === 1, 'The value of a is 1');
+        assert(b === 2, 'The value of b is 2');
+        assert(c === 3, 'The value of c is 3');
+
+        assert(arguments.length === 5 , '5 parameters passed');
+
+        assert(arguments[0] === a, 'The first argument is assigned to a');
+        assert(arguments[1] === b, 'The first argument is assigned to b');
+        assert(arguments[2] === c, 'The first argument is assigned to c');
+
+        assert(arguments[3] === 4, 'Access 4th argument with arguments array notation');
+        assert(arguments[4] === 5, 'Access 5th argument with arguments array notation');
+      }
+
+      whatever(1, 2, 3, 4, 5);
+
+      // Check typeof arguments
+      function arguments_type_check() {
+        console.log(typeof arguments);
+      };
+
+      arguments_type_check(); // returns 'object' - arguments is an object
+
+      // Using the arguments object to perform operations on all function arguments
+      function add() {
+        var sum = 0;
+        for(var i = 0; i < arguments.length; i++) {
+          sum += arguments[i];
+        }
+        return sum;
+      }
+
+      assert(add(1, 2) === 3, "We can add two numbers");
+      assert(add(1, 2, 3) === 6, "We can add three numbers");
+      assert(add(1, 2, 3, 4) === 10, "We can add four numbers");
+
+      // The arguments object aliases function parameters
+      function infiltrate(person) {
+        assert(person === 'gardener', 'The person is a gardener');
+        assert(arguments[0] === 'gardener', 'The first argument is a gardener');
+
+        arguments[0] = 'ninja';
+
+        assert(person === 'ninja', 'The person is a ninja now');
+        assert(arguments[0] === 'ninja', 'The first argument is a ninja');
+
+        person = 'gardener';
+        assert(person === 'gardener', 'The person is a gardener once more');
+        assert(arguments[0] === 'gardener', 'The first argument is a gardener again');
+      }
+
+      infiltrate("gardener");
+
+      // Using 'strict mode' we can disable aliasing function parameters.
+      function strict_infiltrate(person) {
+        'use strict';
+        assert(person === 'gardener', 'The person is a gardener');
+        assert(arguments[0] === 'gardener', 'The first argument is a gardener');
+
+        arguments[0] = 'ninja';
+
+        assert(person === 'gardener', 'The person is still gardener');
+        assert(arguments[0] === 'ninja', 'The first argument is a ninja');
+      }
+
+      strict_infiltrate('gardener');
+    </script>
+  </body>
+</html>
