@@ -5,3 +5,7 @@
 .fail {
   color: red;
 }
+
+div.body {
+  margin: 50px;
+}

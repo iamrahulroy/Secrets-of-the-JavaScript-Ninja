@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // function declaration invoked as a function
+      function ninja(){};
+      ninja();
+
+      // function expression invoked as a function
+      var samurai = function(){};
+      samurai();
+
+      // Immediately invoked function expression, invoked as a function
+      (function(){})();
+
+      // when invoked as a function, function context(this) can be two things
+      // 1. global context - in nonstrict mode
+      // 2. undefined - in strict mode
+
+      function ninja() {
+        return this;
+      }
+
+      function samurai() {
+        'use strict';
+        return this;
+      }
+
+      assert(ninja() === window, "In a 'nonstrict' mode, the context is the global window object")
+      assert(samurai() === undefined, "In a strict mode, context is undefined")
+    </script>
+  </body>
+</html>
