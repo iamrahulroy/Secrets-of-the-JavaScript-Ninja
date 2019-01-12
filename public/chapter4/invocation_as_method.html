@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Invocation as method
+      // create object
+      var ninja = {};
+
+      // add function as property of an object
+      ninja.skulk = function(){};
+
+      // Invoked as a method
+      ninja.skulk();
+
+      // this = ninja object
+
+      // The differences between function and method invocations
+
+      // Returns the function context that will allow us to examine it from outside
+      function whatsMyContext() {
+        return this;
+      }
+
+      assert(whatsMyContext() === window, 'Function call on window');
+
+      // gets a reference to the whatsMyContext function
+      var getMyThis = whatsMyContext;
+
+      assert(getMyThis() === window, 'Another function call in window');
+
+      // object created with getMyThis property that references the whatsMyContext function
+      var ninja1 = {
+        getMyThis: whatsMyContext
+      };
+
+      // invoking the function as a method of object. Function context is ninja1
+      assert(ninja1.getMyThis() === ninja1, 'Working with 1st ninja');
+
+      // object created with getMyThis property that references the whatsMyContext function
+      var ninja2 = {
+        getMyThis: whatsMyContext
+      };
+
+      // Function context is ninja2
+      assert(ninja2.getMyThis() === ninja2, 'Working with 2nd ninja');
+    </script>
+  </body>
+</html>
