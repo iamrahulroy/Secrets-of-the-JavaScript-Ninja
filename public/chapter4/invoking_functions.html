@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function skulk(name) {}
+      function Ninja(name) {}
+
+      // Invoked as a function
+      skulk('Hattori');
+      (function(who){ return who; })('Hattori');
+      (function who(params) { return params; })('Hattori args');
+
+      var ninja = {
+        skulk: function(){}
+      };
+      // invoked as a method of ninja
+      ninja.skulk('Hattori');
+
+      function Ninja(params) {
+        return params;
+      };
+
+      // invoked as a constructor
+      ninja = new Ninja('Hattori');
+
+      // invoked via call method
+      skulk.call(ninja, 'Hattori');
+
+      // invoked via apply method
+      skulk.apply(ninja, ['Hattori']);
+    </script>
+  </body>
+</html>
