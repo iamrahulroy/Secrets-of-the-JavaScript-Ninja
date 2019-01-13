@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <button type="button" name="button" id="test">Click me</button>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // apply and call methods are use to set function context
+
+      // Binding a specific context to a function
+      function Button() {
+        this.clicked = false;
+        this.click = function() {
+          this.clicked = true;
+          // Within the method, we test that the button state has been correctly changed after a click
+          debugger
+          assert(button.clicked === true, 'Wrong function context! The button has been clicked');
+        };
+      }
+
+      // Creates an instance that will track whether the button was clicked
+      var button = new Button();
+
+      // Establishes the click handler on the button
+      var elem = document.getElementById('test');
+      elem.addEventListener('click', button.click);
+
+      // Using the apply and call methods to supply the function context
+
+      // Adds all the arguments and return it's sum
+      function addIt() {
+        var sum = 0;
+        for(var n = 0; n < arguments.length; n++){
+          sum += arguments[n];
+        }
+        this.sum = sum;
+      }
+
+      // empty objects to be used as function context
+      var ninja1 = {};
+      var ninja2 = {};
+
+      // use apply function, passing ninja1 and an array of arguments
+      addIt.apply(ninja1, [1, 2, 3, 4]);
+      // use call method, passing ninja2 and list of arguments
+      addIt.call(ninja2, 5, 6, 7, 8);
+
+      // The tests shows how the addIt result is placed on the objects passed to the methods
+      assert(ninja1.sum === 10, 'addIt via apply');
+      assert(ninja2.sum == 26, 'addIt via call');
+    </script>
+  </body>
+</html>
