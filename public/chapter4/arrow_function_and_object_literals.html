@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <button type="button" name="button" id="test">Click me</button>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      assert(this === window, 'this === window');
+
+      // button object defined as an object literal
+      var button = {
+        clicked: false,
+        // Our arrow function is a property of an object literal
+        click: () => {
+          this.clicked = true;
+
+          // Test whether the button was clicked
+          assert(button.clicked, 'The button has been clicked');
+
+          // The value of this in our arrow function is the global window object
+          assert(this === window, 'In arrow function this === window');
+
+          // clicked is stored on window
+          assert(window.clicked, 'click is stored in the window');
+        }
+      }
+
+      var element = document.getElementById('test');
+      element.addEventListener('click', button.click);
+
+      // Arrow functions pick up the value of the this parameter at the moment of their creation.
+
+      // Because the click arrow function is created as a property value on an object literal,
+      // and the object literal is created in global code, the this value of the arrow function
+      // will be the this value of the global code.
+      // the value of the this parameter in global code is the global window object.
+    </script>
+  </body>
+</html>
