@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Using constructor to set up common objects
+
+      // A constructor that creates a skulk property on whatever object is the
+      // function context. The method once again returns the function context so
+      // that we can test it externally.
+      function Ninja() {
+        this.skulk = function(){
+          return this;
+        };
+      }
+
+      // Creates objects by invoking the constructor with new.
+      var ninja1 = new Ninja();
+      var ninja2 = new Ninja();
+
+      // Tests the skulk method of the constructed objects. Each should return its own constructed object.
+      assert(ninja1.skulk() === ninja1, 'The 1st ninja is skulking');
+      assert(ninja2.skulk() === ninja2, 'The 2nd ninja is skulking');
+
+      // Constructor returning primitive values
+      function Ninja1() {
+        this.skulk = function(){
+          return true;
+        };
+
+        return 1;
+      }
+
+      assert(Ninja1() === 1, 'Return value honored when not called as a constructor');
+
+      var ninja = new Ninja1();
+
+      assert(typeof ninja === 'object', 'Object returned when called as a constructor');
+      assert(typeof ninja.skulk === 'function', 'ninja object has a skulk method');
+
+      // Constructors explicitly returning object values
+
+      // create object with rules property
+      var puppet = {
+        rules: false
+      };
+
+      // Returns that object despite initializing the object passed as this
+      function Emperor() {
+        this.rules = true;
+        return puppet
+      }
+
+      // invokes the function as constructor
+      var emperor = new Emperor();
+
+      assert(emperor === puppet, 'The emperor is merely a puppet!');
+      assert(emperor.rules === false, 'The puppet does not know how to rule!');
+    </script>
+  </body>
+</html>
