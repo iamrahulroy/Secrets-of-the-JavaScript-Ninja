@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <button type="button" name="button" id="test">Click me</button>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Button(){
+        this.clicked = false;
+        // Declares the arrow function that we'll use as the click handler.
+        // Because it's a method of the object, we use this within the function
+        // to get a reference to the object.
+        this.click = () => {
+          this.clicked = true;
+          assert(button.clicked, 'The button has been clicked');
+        };
+      }
+
+      var button = new Button();
+
+      var element = document.getElementById('test');
+      element.addEventListener('click', button.click);
+    </script>
+  </body>
+</html>
