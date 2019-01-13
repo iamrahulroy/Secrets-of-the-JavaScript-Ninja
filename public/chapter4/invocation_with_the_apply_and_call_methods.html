@@ -59,6 +59,27 @@
       // The tests shows how the addIt result is placed on the objects passed to the methods
       assert(ninja1.sum === 10, 'addIt via apply');
       assert(ninja2.sum == 26, 'addIt via call');
+
+      // Building a forEach function to demonstrate setting a function context
+
+      // Our iteration function accepts the collection to be iterated over and callback a callback function
+      function forEach(list, callback) {
+        for(var n = 0; n < list.length; n++) {
+          // callback is invoked such that current iteration item is the function context
+          callback.call(list[n], n);
+        }
+      }
+
+      // test subject
+      var weapons = [ { type: 'shuriken' },
+                      { type: 'katana' },
+                      { type:'nunchucks' }];
+
+      // Calls the iteration function and ensures that the function context
+      // is correct for each invocation of the callback
+      forEach(weapons, function(index) {
+        assert(this === weapons[index], 'Got the expected value of ' + weapons[index].type);
+      })
     </script>
   </body>
 </html>
