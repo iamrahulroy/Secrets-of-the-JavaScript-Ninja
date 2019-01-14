@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines the constructor Ninja
+      function Ninja(){
+        // Private variable as scope is limited to inside constructor
+        var feints = 0;
+
+        // Accessor Method for feints counter
+        this.getFeints = function(){
+          return feints;
+        };
+
+        // Writer method: Increment method for the counter.
+        this.feint = function(){
+          feints++;
+        };
+      }
+
+      // construct an instance of Ninja
+      var ninja1 = new Ninja();
+
+      // increment counter
+      ninja1.feint();
+
+      assert(ninja1.feints === undefined, 'The private data is inaccessible to us.');
+      assert(ninja1.getFeints() === 1, 'We are able to access the internal feint count through accessor method.');
+
+      // create ninja2 object
+      var ninja2 = new Ninja();
+
+      assert(ninja2.getFeints() === 0, 'The second ninja object gets its own feints variable.');
+    </script>
+  </body>
+</html>
