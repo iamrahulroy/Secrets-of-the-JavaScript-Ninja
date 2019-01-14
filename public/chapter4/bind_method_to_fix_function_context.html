@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <button type="button" name="button" id="test">Click me</button>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Binding a specific context to an event handler
+      var button = {
+        clicked: false,
+        click: function(){
+          this.clicked = true;
+          assert(button.clicked, 'The button has been clicked');
+        }
+      };
+
+      var element = document.getElementById('test');
+      // Uses the bind function to create a new function bound to the button object
+      element.addEventListener('click', button.click.bind(button));
+
+      var boundFunction = button.click.bind(button);
+      assert(boundFunction != button.click, 'Calling bind creates a completely new function ');
+    </script>
+  </body>
+</html>
