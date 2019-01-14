@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Simple closure example
+      // Defines a value in global scope
+      var outerValue = 'ninja';
+
+      // Declare function in global scope
+      function outerFunction(){
+        assert(outerValue === 'ninja', 'I can see the ninja');
+      }
+      //execute the function
+      outerFunction();
+
+      // Another closure example
+      var outerValue1 = 'samurai';
+      var later; // empty variable to be used later
+
+      function outerFunction1(){
+        var innerValue = 'ninja';
+
+        function innerFunction(){
+          assert(outerValue1 === 'samurai', 'I can see the samurai');
+          assert(innerValue === 'ninja', 'I can see the ninja');
+        }
+
+        // stores reference to innerFunction in the later variable.
+        // Because later is in global scope, it'll allow us to call
+        // the function later.
+        later = innerFunction;
+      }
+
+      // Invokes outerFunction1, which causes innerFunction to be created and
+      // its reference assigned to later
+      outerFunction1();
+
+      // Invokes innerFunction through later. We can't invoke it directly
+      // because its scope is limited to within outerFunction
+      later();
+    </script>
+  </body>
+</html>
