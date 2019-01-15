@@ -1,11 +1,28 @@
-.pass {
-  color: green;
-}
-
-.fail {
-  color: red;
-}
-
 div.body {
   margin: 50px;
+}
+
+body {
+	font-family: sans-serif;
+	font-size: 12pt;
+}
+
+#results {
+	background-color: #e0e0e0;
+	border-radius: 1em;
+	padding: 1em;
+	list-style-position: inside;
+}
+
+#results li {
+	margin-bottom: 0.2em;
+}
+
+#results li.pass {
+	color: green;
+}
+
+#results li.fail {
+	color: red;
+	text-decoration: line-through;
 }
