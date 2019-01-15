@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Fun with functions as objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+
+    <div id="box1">First Box</div>
+    <div id="box2">Second Box</div>
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      var elem;
+      var tick = 0;
+      var timer;
+      function animateIt(elementId){
+        // get reference to element
+        var elem = document.getElementById(elementId);
+        // Establishes a counter to keep track of animation ticks(steps)
+        //var tick = 0;
+        // built-in function that creates & starts an interval timer, give a callback
+        timer = setInterval(function(){
+          if(tick < 100){
+            elem.style.left = elem.style.top = tick + 'px';
+            tick++;
+          } else {
+            clearInterval(timer);
+
+            // after 100 ticks, we stop the timer and perform tests to assert that
+            // we can see all relevant variables needed to perform animation.
+            assert(tick === 100, 'Tick accessed via a closure.');
+            assert(elem, 'Element also accessed via a closure.');
+            assert(timer, 'Timer reference also obtained via a closure');
+          }
+        }, 10); // The setInterval duration - The callback will be called every 10ms
+      }
+      animateIt('box1');
+      animateIt('box2');
+
+      // The problem immediately becomes obvious. If we keep the variables in the global
+      // scope, we need a set of three variables for each animation. Otherwise, they’ll step all
+      // over each other, trying to use the same set of variables to keep track of multiple states.
+    </script>
+  </body>
+</html>
