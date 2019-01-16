@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const firstConst = 'samurai';
+      assert(firstConst === 'samurai', 'firstConstis a samurai');
+
+      try{
+        firstConst = 'ninja';
+        fail("shouldn't be here");
+      } catch(e){
+        pass('An exception has occurred');
+      }
+
+      assert(firstConst === 'samurai', 'firstConst is still a samurai');
+
+      // Create a new const variable & assigns a new object to it
+      const secondConst = {};
+
+      // We can’t assign a completely new object to the secondConst variable,
+      // but there’s nothing stopping us from modifying the one we already have.
+      secondConst.weapon = 'wakizashi';
+      assert(secondConst.weapon === 'wakizashi', 'We can add new properties');
+
+      // The exact same thing holds for arrays.
+      const thirdConst = [];
+      assert(thirdConst.length === 0, 'No items in our array');
+
+      thirdConst.push('Yoshi');
+      assert(thirdConst.length === 1, 'The array has changed!');
+    </script>
+  </body>
+</html>
