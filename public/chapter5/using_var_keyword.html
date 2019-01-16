@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // global variable using var
+      var globalNinja = 'Yoshi';
+
+      function reportActivity(){
+        // Defines a function local variable, using var
+        var functionActivity = 'jumping';
+
+        // defines two variables in the for loop, using var
+        for(var i = 1; i < 3; i++){
+          // Within the for loop, we can access the block variables,
+          // function variables, and global variables
+          var forMessage = globalNinja + ' ' + functionActivity;
+          assert(forMessage === 'Yoshi jumping', 'Yoshi is jumping within the for block');
+          assert(9, 'Current loop counter: ' + i);
+        }
+
+        // Variables of the for loop are also accessible outside the for loop
+        assert(i === 3, "Loop variable 'i' can be accessed outside of the for loop");
+        assert(forMessage === 'Yoshi jumping', "Loop variable 'forMessage' variable accessible outside of the loop")
+      }
+
+      reportActivity();
+
+      // Normally none of the functio variables are accessible outside of the function
+      assert(typeof functionActivity === 'undefined'
+             && typeof i === 'undefined'
+             && typeof forMessage === 'undefined',
+             'We cannot see function variables outside of a function');
+    </script>
+  </body>
+</html>
+// Variables defined inside the block are accessible outside the block. 
