@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines global variable, using const
+      const GLOBAL_NINJA = 'Yoshi';
+
+      function reportActivity(){
+        // define function const variable, using const
+        const functionActivity = 'jumping';
+
+        // defines two variables in the for loop using let
+        for(let i = 1; i < 3; i++){
+          let forMessage = GLOBAL_NINJA + ' ' + functionActivity;
+          assert(forMessage === 'Yoshi jumping', 'Yoshi is jumping within the for block');
+          assert(i, 'Current loop counter:' + i);
+        }
+        // Variables of for loop aren't accessible outside the for loop, thanks to 'let' keyword
+        assert(typeof i === 'undefined' && typeof forMessage === 'undefined',
+               'Loop variables not accessible outside the loop');
+      }
+      reportActivity();
+
+      // None of the function varible are accessible outside the function
+      assert(typeof functionActivity === 'undefined' && typeof i === 'undefined'
+             && typeof forMessage === 'undefined', 'Cannot see function variables.');
+    </script>
+  </body>
+</html>
