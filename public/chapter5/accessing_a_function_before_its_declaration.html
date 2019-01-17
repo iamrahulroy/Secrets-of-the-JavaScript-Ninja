@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // we can access a function that isn't yet defined, if the function is defined as a function declaration
+      assert(typeof fun === 'function', "fun is a function even though it's definition isn't reached yet!");
+
+      // we can't access functions that are defined as function expressions or arrow functions before their declaration
+      assert(typeof myFunExpr === 'undefined', 'But we cannot access function expression');
+      assert(typeof myArrow === 'undefined', 'Not arrow functions');
+
+      // defined as function declaration
+      function fun(){};
+
+      // myFunExpr points to a function expression, and
+      // myArrow to an arrow function 
+      var myFunExpr = function(){};
+      var myArrow = (x) => x;
+    </script>
+  </body>
+</html>
