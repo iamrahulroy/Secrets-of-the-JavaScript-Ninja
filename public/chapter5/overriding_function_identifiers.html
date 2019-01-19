@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // True as fun is defined using functin declaration
+      assert(typeof fun === 'function', 'we access the function');
+
+      var fun = 5;
+
+      assert(typeof fun === 'number', 'fun becomes a number');
+
+      // function declaration
+      function fun(){};
+
+      //  During the actual program execution, function declarations are skipped, so the definition of the fun function doesn’t have any impact on the value of the fun identifier.
+      assert(typeof fun === 'number', 'still a number');
+    </script>
+  </body>
+</html>
