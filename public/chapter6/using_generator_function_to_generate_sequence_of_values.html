@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a generator function by putting a * after the function keyword
+      function* WeaponGenerator(){
+        // Generates individual values by using the new yeild keyword
+        yield 'Katana';
+        yield 'Wakizashi';
+        yield 'Kusarigama';
+      }
+
+      // consumes the generated sequence with the new for-of loop
+      for(let weapon of WeaponGenerator()){
+        assert(weapon !== undefined, weapon);
+      }
+    </script>
+  </body>
+</html>
