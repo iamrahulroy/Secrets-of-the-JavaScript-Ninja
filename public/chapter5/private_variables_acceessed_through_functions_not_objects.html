@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Closure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja() {
+        var feints = 0;
+        this.getFeints = function(){
+          return feints;
+        };
+        this.feint = function(){
+          feints++;
+        };
+      }
+      var ninja1 = new Ninja();
+      ninja1.feint();
+
+
+      // make the getFeints function of ninja1 accessible through the imposter object
+      var imposter = {};
+      imposter.getFeints = ninja1.getFeints;
+
+      assert(imposter.getFeints() === 1, 'The imposter has access to feints variable!');
+    </script>
+  </body>
+</html>
