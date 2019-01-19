@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Calling Generator through Iterator Object </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a generator that will produce sequence of two weapons
+      function* WeaponGenerator(){
+        yield 'Katana';
+        yield 'Wakizashi';
+      }
+
+      // Calling a generator creates an iterator through which we control the generator's execution
+      const weaponsIterator = WeaponGenerator();
+
+      // Calling the iterator's next method requests a new value from the generator.
+      const result1 = weaponsIterator.next();
+
+      // result is an object with return value and an indicator that tells us whether the generator has more values
+      assert(typeof result1 === 'object' && result1.value === 'Katana' && !result1.done,
+             'Katana received!');
+
+      // calling the iterator again gets another value from the generator.
+      const result2 = weaponsIterator.next();
+      assert(typeof result2 === 'object' && result2.value === 'Wakizashi' && !result2.done,
+             'Wakizashi received');
+
+      // When there's no more code to execute, the generator returns undefined and indicates that it's done
+      const result3 = weaponsIterator.next();
+      assert(typeof result2 === 'object' && result2.value === 'undefined' && result2.done,
+             'There are no more results!');
+    </script>
+  </body>
+</html>
+ 
