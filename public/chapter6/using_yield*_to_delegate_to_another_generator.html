@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function* WarriorGenerator(){
+        yield 'Sun Tzu';
+        // yield* delegates to another generator
+        yield* NinjaGenerator();
+        yield 'Genghis Khan';
+      }
+
+      function* NinjaGenerator(){
+        yield 'Hattori';
+        yield 'Yoshi';
+      }
+
+      for(let warrior of WarriorGenerator()){
+        assert(warrior !== null, warrior);
+      }
+    </script>
+  </body>
+</html>
