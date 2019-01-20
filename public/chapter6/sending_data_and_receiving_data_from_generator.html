@@ -7,15 +7,6 @@
     <link rel="stylesheet" href="../app.css">
   </head>
   <body>
-    <div id='subTree'>
-      <form>
-        <input type='text'/>
-      </form>
-      <p>Paragraph</p>
-      <span>Span</span>
-    </div>
-
-
     <div class='body'>
       Test Result: <p id='results'></p>
     </div>
@@ -25,7 +16,7 @@
       // Generator can receive arguments, like any other function
       function* NinjaGenerator(action){
         // Magic: By yielding a value, generator returns an intermediary calculation. By calling the iterator's next method with an argument, we send data back to the generator
-        const imposter yield('Hattori' + action);
+        const imposter = yield('Hattori ' + action);
 
         // The value sent over next becomes the value of the yielded expression, so our imposter is Hanzo
         assert(imposter === 'Hanzo', 'The generator has been infiltrated');

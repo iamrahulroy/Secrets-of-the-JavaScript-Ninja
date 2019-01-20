@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function* NinjaGenerator() {
+        try{
+          yield 'Hattori';
+          // this fail shouldn't be reached
+          fail('The expected exception did not occur');
+        }
+        catch(e){
+          // tests whether we have received the exception
+          assert(e === 'Catch this!', 'Aha, We caught an exception');
+        }
+      }
+
+      const ninjaIterator = NinjaGenerator();
+
+      // Pulls one value from the generator
+      const result1 = ninjaIterator.next();
+      assert(result1.value === 'Hattori', 'We got Hattori');
+
+      // Throws an exception to the generator
+      ninjaIterator.throw('Catch this!');
+    </script>
+  </body>
+</html>
