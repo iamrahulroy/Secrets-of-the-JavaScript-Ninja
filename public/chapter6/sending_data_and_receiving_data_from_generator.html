@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div id='subTree'>
+      <form>
+        <input type='text'/>
+      </form>
+      <p>Paragraph</p>
+      <span>Span</span>
+    </div>
+
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Generator can receive arguments, like any other function
+      function* NinjaGenerator(action){
+        // Magic: By yielding a value, generator returns an intermediary calculation. By calling the iterator's next method with an argument, we send data back to the generator
+        const imposter yield('Hattori' + action);
+
+        // The value sent over next becomes the value of the yielded expression, so our imposter is Hanzo
+        assert(imposter === 'Hanzo', 'The generator has been infiltrated');
+
+        yield('Yoshi (' + imposter + ') ' + action);
+      }
+
+      // normal argument passing
+      const ninjaIterator = NinjaGenerator('skulk');
+
+      // Triggers the execution of the generator and checks that we get the correct value
+      const result1 = ninjaIterator.next();
+      assert(result1.value === 'Hattori skulk', 'Hattori skulking');
+
+      // Sends data to the generator as an argument to the next method
+      // and checks whether the value was correctly transferred
+      const result2 = ninjaIterator.next('Hanzo');
+      // the value Hanzo, passed as the argument to next(), is used as the value of the whole yield expression.
+      assert(result2.value === 'Yoshi (Hanzo) skulk', 'We have an imposter');
+    </script>
+  </body>
+</html>
