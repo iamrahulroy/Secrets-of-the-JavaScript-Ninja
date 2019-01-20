@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div id='subTree'>
+      <form>
+        <input type='text'/>
+      </form>
+      <p>Paragraph</p>
+      <span>Span</span>
+    </div>
+
+
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function* DomTraversal(element){
+        yield element;
+        element = element.firstElementChild;
+        while(element){
+          // Uses yield to transfer the iteration control to another
+          // instance of the DomTraversal generator
+          yield* DomTraversal(element);
+          element = element.nextElementSibling;
+        }
+      }
+
+      const subTree = document.getElementById('subTree');
+      for(let element of DomTraversal(subTree)){
+        assert(element !== null, element.nodeName);
+      }
+    </script>
+  </body>
+</html>
