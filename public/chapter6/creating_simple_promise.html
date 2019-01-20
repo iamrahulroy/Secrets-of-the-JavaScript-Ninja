@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Promises </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Creates a promise by calling a built in Promise constructor and passing in a callback function with two parameters: resolve and reject
+      const ninjaPromise = new Promise((resolve, reject) => {
+        // A promise is succesfully resolved by calling the passed in resolve function (and rejected by calling reject function)
+        resolve('Hattori');
+        // reject('An error resolving a promise!');
+      });
+
+      // By using the then method on a promise, we can pass in two callbacks;
+      // first is called if a promise is succesfully resolved.
+      ninjaPromise.then(ninja => {
+        assert(ninja === 'Hattori', 'We were promised Hattori!');
+      }, err => {
+        // second is called if an error occurs
+        fail("There shouldn't be an error");
+      });
+    </script>
+  </body>
+</html>
