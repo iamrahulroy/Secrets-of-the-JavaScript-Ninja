@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      report('At code start');
+
+      var ninjaDelayedPromise = new Promise((resolve, reject) => {
+        // Calling the Promise constructor immediately invokes the passed-in function
+        report('ninjaDelayedPromise executor');
+        // We’ll resolve this promise as successful after a 500ms timeout expires
+        setTimeout(() => {
+          report('Resolving ninjaDelayedPromise');
+          resolve('Hattori');
+        }, 500);
+      });
+
+      assert(ninjaDelayedPromise !== null, 'After creating ninjaDelayedPromise');
+
+      // The promise then method is used to setup a callback that will be
+      // called when the promise resolves, in our case when the timeout expires.
+      ninjaDelayedPromise.then(ninja => {
+        assert(ninja === 'Hattori', 'ninjaDelayedPromise resolve handled with Hattori');
+      });
+
+      // creates a new promise that gets immediately resolved
+      const ninjaImmediatePromise = new Promise((resolve, reject) => {
+        report('ninjaImmediatePromise executor. Immediate resolve');
+        resolve('Yoshi');
+      });
+
+      ninjaImmediatePromise.then(ninja => {
+        assert(ninja === 'Yoshi', 'ninjaImmediatePromise resolve handled with Yoshi');
+      });
+      report('At code end');
+    </script>
+  </body>
+</html>
