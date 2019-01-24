@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Functions: Generator functions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const promise = new Promise((resolve, reject) => {
+        // A promise is implicitly rejected if an unhandled exception occurs when processing the promise.
+        undeclaredVariable++;
+      });
+
+      // If an exception occurs, the second error, callback is invoked.
+      promise.then(() => fail("Happy path, won't be called!"))
+             .catch(error => pass("Third promise was also rejected"));
+    </script>
+  </body>
+</html>
