@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const yoshi = { skulk: true };
+      const hattori = { sneak: true };
+      const kuma = { creep: true };
+
+      // Yoshi has access to only its own, skulk, property.
+      assert('skulk' in yoshi, 'Yoshi can skulk');
+      assert(!('sneak' in yoshi), 'Yoshi can not sneak');
+      assert(!('creep' in yoshi), 'Yoshi can not creep');
+
+      // Use the Object.setPrototypeOf method to set one object as the prototype of another object.
+      Object.setPrototypeOf(yoshi, hattori);
+
+      // By setting hattori as yoshi's prototype, yoshi now has access to hattori's properties
+      assert('sneak' in yoshi, 'Yoshi can now sneak');
+      assert(!('creep' in hattori), 'Hattori can not creep');
+
+      // Set kuma as a prototype of hattori
+      Object.setPrototypeOf(hattori, kuma);
+
+      assert('creep' in hattori, 'Hattori can now creep');
+      // Yoshi has access to creep through hattori
+      assert('creep' in yoshi, 'Even yoshi can creep');
+    </script>
+  </body>
+</html>
