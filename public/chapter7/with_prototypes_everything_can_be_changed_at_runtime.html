@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a constructor that creates a Ninja with a single Boolean property
+      function Ninja(){
+        this.swung = true;
+      }
+
+      // Creates instance of Ninja by calling the constructor via 'new' operator
+      // Before adding method to prototype of Ninja
+      const ninja1 = new Ninja();
+
+      // Adds a method to the prototype after object creation
+      Ninja.prototype.swingSword = function(){
+        return this.swung;
+      };
+
+      // Shows that method exists in the object
+      assert(ninja1.swingSword(), 'Method exists, even out of order.');
+
+      // Completely overrides the Ninja's prototype with a new object via the pierce method
+      Ninja.prototype = {
+        pierce: function() {
+          return true;
+        }
+      }
+
+      // Even though we've Completely replaced the Ninja constructor's prototype, our Ninja can still swing a sword, because it keeps a reference to the old Ninja prototype.
+      assert(ninja1.swingSword(), 'Our ninja can still swing!');
+
+      assert(!ninja1.pierce, 'Our ninja can not pierce');
+
+      // Create new object after overriding Ninja's prototype
+      const ninja2 = new Ninja();
+
+      // Newly created ninjas reference the new prototype, so they can pierce but can't swing
+      assert(ninja2.pierce(), 'Newly created ninja can pierce');
+      assert(!ninja2.swingSword, 'Newly created ninja can not swing!');
+    </script>
+  </body>
+</html>
