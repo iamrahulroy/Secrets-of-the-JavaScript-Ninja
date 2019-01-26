@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja(){};
+      const ninja = new Ninja();
+
+      // Tests the typeof ninja via typeof. This tells us it's an object, not much else.
+      assert(typeof ninja === 'object', 'The type of the instance is object');
+      // Tests the type of ninja via instanceof. This tells us that it was constructed from Ninja
+      assert(ninja instanceof Ninja, 'instanceof identifies the constructor');
+      // Tests the typeof ninja via the constructor reference.
+      // This gives us reference to the constructor function.
+      assert(ninja.constructor === Ninja, 'The ninja object was created by the Ninja function');
+    </script>
+  </body>
+</html>

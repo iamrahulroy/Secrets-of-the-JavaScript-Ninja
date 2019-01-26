@@ -48,6 +48,20 @@
       // Newly created ninjas reference the new prototype, so they can pierce but can't swing
       assert(ninja2.pierce(), 'Newly created ninja can pierce');
       assert(!ninja2.swingSword, 'Newly created ninja can not swing!');
+
+      // Doubts
+      // ninja1 and ninja2's constructors are different
+      assert(ninja1.constructor !== ninja2.constructor, 'ninja1 & ninja2 has different constructor.');
+      assert((ninja1 instanceof Object) === (ninja2 instanceof Object),
+             'ninja1 and ninja2 are an instance of Object');
+
+
+      assert(ninja1.constructor === Ninja, 'ninja1 constructor is Ninja function');
+      assert(ninja1 instanceof Object, 'ninja1 is an instance of Ninja function');
+
+      // Since prototype of Ninja was overriden, Object is the new constructor
+      assert(ninja2.constructor === Object, 'ninja2 constructor is Object');
+      assert(ninja2 instanceof Object, 'ninja2 is an instance of Ninja function');
     </script>
   </body>
 </html>
