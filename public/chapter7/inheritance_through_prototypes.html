@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Person(){};
+      Person.prototype.dance = function(){};
+
+      function Ninja(){};
+      // Attempts to make Ninja a dancing Person by copying the dance method from the Person prototype
+      Ninja.prototype = { dance: Person.prototype.dance };
+
+      const ninja = new Ninja();
+
+      assert(ninja instanceof Ninja, 'ninja receives functionality from the Ninja prototype');
+      assert(ninja instanceof Person, '... and the Person prototype');
+      assert(ninja instanceof Object, '... and the Object prototype');
+    </script>
+  </body>
+</html>
