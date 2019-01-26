@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja(){};
+
+      const ninja1 = new Ninja();
+      // construct new object from ninja1 object's constructor method
+      const ninja2 = new ninja1.constructor();
+
+      assert(ninja2 instanceof Ninja, "It's a Ninja");
+      assert(ninja1 !== ninja2, 'ninja1 and ninja2 are not same.');
+    </script>
+  </body>
+</html>
