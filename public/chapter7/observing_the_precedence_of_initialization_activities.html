@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja(){
+        // Creates an instance variable that holds a boolean value initialized to false
+        this.swung = false;
+
+        // creates an instance method that returns the inverse of the swung instance variable value
+        this.swingSword = function(){
+          return !this.swung;
+        };
+      }
+
+      // Defines a prototype method with the same name as the instance method.
+      Ninja.prototype.swingSword = function(){
+        return this.swung;
+      };
+
+      const ninja = new Ninja();
+      assert(ninja.swingSword(), 'Called the instance method, not the prototype method.');
+    </script>
+  </body>
+</html>
