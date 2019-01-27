@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      class Ninja{
+        constructor(name, level){
+          this.name = name;
+          this.level = level;
+        }
+
+        swingSword() {
+          return true;
+        }
+
+        // Uses static keyword to define static method
+        static compare(ninja1, ninja2){
+          return ninja1.level - ninja2.level;
+        }
+      }
+
+      var ninja1 = new Ninja('Yoshi', 4);
+      var ninja2 = new Ninja('Hattori', 3);
+
+      // ninja instances doesn't have access to static method compare
+      assert(!('compare' in ninja1) && !('compare' in ninja2), "A ninja instance doesn't know how to compare.");
+
+      // Class Ninja has access to static method compare, as expected
+      assert(Ninja.compare(ninja1, ninja2), 'The Ninja class can do the comparison');
+
+      assert(!('swingSword' in Ninja), 'The Ninja class cannot swing a sword');
+
+      // Same static method implementation in pre-ES6
+      // function Ninja(){};
+      // Ninja.compare = function(ninja1, ninja2) {
+      //   return ninja1.level - ninja2.level;
+      // }
+    </script>
+  </body>
+</html>
