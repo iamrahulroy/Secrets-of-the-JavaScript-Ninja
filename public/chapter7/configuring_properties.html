@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      var ninja = {};
+      ninja.name = 'Yoshi';
+      ninja.weapon = 'Kusarigama';
+
+      Object.defineProperty(ninja, 'sneaky', {
+        configurable: false,
+        enumerable: false,
+        value: true,
+        writable: true
+      });
+
+      Object.defineProperty(ninja, 'visible', {
+        configurable: false,
+        enumerable: true,
+        value: true,
+        writable: true
+      });
+
+      assert('sneaky' in ninja, "We can access the new 'sneaky' property");
+      assert('visible' in ninja, "We can access the new 'visible' property");
+
+      // Uses the for-in loop to iterate over ninja's enumberable properties
+      // 'sneaky' won't show up, visible will
+      for(let prop in ninja){
+        assert(prop !== undefined, 'An enumerated property: ' + prop);
+      }
+    </script>
+  </body>
+</html>
