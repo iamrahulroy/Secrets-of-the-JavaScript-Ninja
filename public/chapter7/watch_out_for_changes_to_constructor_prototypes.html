@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja(){};
+
+      const ninja = new Ninja();
+
+      assert(ninja instanceof Ninja, 'Our ninja is a Ninja');
+
+      // Change the prototype of the Ninja constructor function
+      Ninja.prototype = {};
+
+      // Even though our ninja instance was created by the Ninja constructor, the instanceof operator now says that ninja isn't an instance of Ninja anymore!
+      assert(!(ninja instanceof Ninja), 'The ninja is not a ninja!');
+    </script>
+  </body>
+</html>
