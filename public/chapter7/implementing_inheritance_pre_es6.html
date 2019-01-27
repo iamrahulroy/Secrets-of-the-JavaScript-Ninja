@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Person(){};
+      Person.prototype.dance = function(){};
+
+      function Ninja(){};
+      Ninja.prototype = new Person();
+
+      Object.defineProperty(Ninja.prototype, 'constructor', {
+        enumerable: false,
+        value: Ninja,
+        writable: true
+      });
+    </script>
+  </body>
+</html>

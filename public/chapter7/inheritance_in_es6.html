@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Object orientation with prototypes: Inheritance in ES6</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      class Person {
+        constructor(name) {
+          this.name = name;
+        }
+
+        dance() {
+          return true;
+        }
+      }
+
+      // Uses the extend keyword to inherit from anoher class
+      class Ninja extends Person {
+        constructor(name, weapon) {
+          // Uses super keyword to call base class constructor
+          super(name);
+          this.weapon = weapon;
+        }
+
+        wieldWeapon() {
+          return true;
+        }
+      }
+
+      var person = new Person('Bob');
+
+      assert(person instanceof Person, 'A person is a person');
+      assert(person.dance(), 'A person can dance.');
+      assert(person.name === 'Bob', 'A person has a name, Bob');
+      assert(!(person instanceof Ninja), 'A person is not a Ninja');
+      assert(!('wieldWeapon' in person), 'A person can not wield a weapon');
+
+      var ninja = new Ninja('Yoshi', 'Wakizashi');
+      assert(ninja instanceof Ninja, 'A ninja is a ninja');
+      assert(ninja.wieldWeapon(), 'A ninja can wield a weapon');
+      assert(ninja instanceof Person, 'A ninja is also a person');
+      assert(ninja.name === 'Yoshi', 'A ninja too has a name');
+      assert(ninja.dance(), 'A ninja can dance too!');
+    </script>
+  </body>
+</html>
