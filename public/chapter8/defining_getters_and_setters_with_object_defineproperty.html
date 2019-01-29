@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a constructor function
+      function Ninja() {
+        // Defines a 'private' variable that will be accessible through function closures
+        let _skillLevel = 0;
+
+        // Uses the built-in Object.defineProperty to define a skillLevel property
+        Object.defineProperty(this, 'skillLevel', {
+          // getter method
+          get: () => {
+            report('The get method is called');
+            return _skillLevel;
+          },
+          // setter method
+          set: value => {
+            report('The set method is called');
+            _skillLevel = value;
+          }
+        });
+      }
+      // Creates a new Ninja instance
+      const ninja = new Ninja();
+
+      assert(typeof ninja._skillLevel === 'undefined',
+             "We cannot access a 'private' property");
+      assert(ninja.skillLevel === 0, 'The getter method works fine!');
+
+      // The set method is implicitly called when assigning to the skillLevel property
+      ninja.skillLevel = 10;
+      assert(ninja.skillLevel === 10, 'The value was updated');
+    </script>
+  </body>
+</html>
