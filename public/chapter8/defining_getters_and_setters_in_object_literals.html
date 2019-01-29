@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const ninjaCollection = {
+        ninjas: ['Yoshi', 'Kuma', 'Hattori'],
+
+        // Defines a getter method for the firstNinja property that returns the first ninja in our collection and logs a message
+        get firstNinja(){
+          report('Getting firstNinja');
+          return this.ninjas[0];
+        },
+        // Defines a setter method for the firstNinja property that modifies the first ninja in our collection and logs a message
+        set firstNinja(value){
+          report('Setting firstNinja');
+          this.ninjas[0] = value;
+        }
+      };
+
+      // Using getter method to access the firstNinja as if it were a standard object property
+      assert(ninjaCollection.firstNinja === 'Yoshi', 'Yoshi is the first ninja');
+
+      // Using setter method to modify the firstNinja property as if it were a standard object property
+      ninjaCollection.firstNinja = 'Hachi';
+
+      assert(ninjaCollection.firstNinja === 'Hachi'
+          && ninjaCollection.ninjas[0] === 'Hachi',
+             'Now Hachi is the new first ninja');
+    </script>
+  </body>
+</html>
