@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja() {
+        // Defines a private skillLevel variable
+        let skillLevel;
+
+        // The getter method controls access to our private skillLevel variable
+        this.getSkillLevel = () => {
+          report('Getting skill level value');
+          return skillLevel;
+        };
+
+        this.setSkillLevel = value => {
+          report("Modifying skillLevel property from:", skillLevel, "to: ", value);
+          skillLevel = value;
+        }
+
+        // The setter method controls the value we can assign to skillLevel
+        this.setSkillLevel = value => {
+          skillLevel = value;
+        };
+      }
+
+      const ninja = new Ninja();
+      // Set skillLevel via setter method
+      ninja.setSkillLevel(100);
+
+      // retrieve the value of skillLevel via getter method
+      assert(ninja.getSkillLevel() === 100, 'ninja is at level 100');
+    </script>
+  </body>
+</html>
