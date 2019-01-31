@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Ninja() {
+        let _skillLevel = 0;
+
+        Object.defineProperty(this, 'skillLevel', {
+          get: () => _skillLevel,
+          set: value => {
+            // Check if passed in value is an integer. If it isn't an exception is thrown
+            if(!Number.isInteger(value)) {
+              throw new TypeError('skillLevel should be a number');
+            }
+            _skillLevel = value;
+          }
+        });
+      }
+
+      const ninja = new Ninja();
+
+      assert(ninja.skillLevel === 0, 'Initial value is zero - 0');
+
+      ninja.skillLevel = 10;
+      assert(ninja.skillLevel === 10, 'The value was updated');
+
+      try {
+        ninja.skillLevel = 'Great';
+        fail('Should not be here');
+      } catch(e) {
+        pass('Exception catch block: Setting a non integer value throws an exception');
+      }
+    </script>
+  </body>
+</html>
