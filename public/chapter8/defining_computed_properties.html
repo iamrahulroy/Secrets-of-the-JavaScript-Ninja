@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const shogun = {
+        name: 'Yoshiaki',
+        clan: 'Ashikaga',
+        get fullTitle() {
+          return this.name + ' ' + this.clan;
+        },
+        set fullTitle(value) {
+          const segments = value.split(' ');
+          this.name = segments[0];
+          this.clan = segments[1];
+        }
+      };
+
+      // The name & clan properties are normal properties whose values are directly obtained. Accessing the fullTitle property calls the get method, which computes the value.
+      assert(shogun.name === 'Yoshiaki', 'shogun Yoshiaki');
+      assert(shogun.clan === 'Ashikaga', 'clan Ashikaga');
+      assert(shogun.fullTitle === 'Yoshiaki Ashikaga', 'The full name is Yoshiaki Ashikaga');
+
+      // Assigning a value to fullTitle perperty calls the set method, which computes and assigns new values to the name and clan properties.
+      shogun.fullTitle = 'Ieyasu Tokugawa';
+      assert(shogun.name === 'Ieyasu', 'shogun Ieyasu');
+      assert(shogun.clan === 'Tokugawa', 'clan Tokugawa');
+      assert(shogun.fullTitle === 'Ieyasu Tokugawa', 'The full name is Ieyasu Tokugawa');
+    </script>
+  </body>
+</html>
