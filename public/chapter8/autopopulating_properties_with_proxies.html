@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      function Folder() {
+        return new Proxy({}, {
+          get: (target, property) => {
+            report("Reading " + property);
+
+            // If the accessed property doesn't exist, we create it.
+            if(!(property in target)) {
+              target[property] = new Folder();
+            }
+            return target[property];
+          }
+        });
+      }
+
+      const rootFolder = new Folder();
+
+      try {
+        // Whenever a property is accessed, the get trap, which creates a property if doesn't exist, is activated.
+        rootFolder.ninjasDir.firstNinja.ninjaFile = 'Yoshi.txt';
+        // No exception will be raised
+        pass("An exception wasn't raised");
+      } catch(e) {
+        fail("An exception should't be raised");
+      }
+    </script>
+  </body>
+</html>
