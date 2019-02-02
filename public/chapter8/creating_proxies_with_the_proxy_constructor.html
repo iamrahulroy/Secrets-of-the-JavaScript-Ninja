@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // emperor is our target object
+      const emperor = { name: 'Komei' };
+
+      // creates a proxy with the Proxy constructor that takes in the object
+      // the proxy wraps and an object with traps that will be called when
+      // reading(get) and writing(set) to properties
+      const representative = new Proxy(emperor, {
+        get: (target, key) => {
+          report('Reading ' + key + ' through a proxy');
+          return key in target ? target[key] : "Don't bother the emperor"
+        },
+        set: (target, key, value) => {
+          report('Writing ' + key + " through a proxy");
+          target[key] = value;
+        }
+      });
+
+      assert(emperor.name === 'Komei', "The emperor's name is Komei. Accessed through emperor object.");
+      assert(representative.name === 'Komei', 'We can get the name property through proxy object.');
+
+      // Accessing a non-existing property directly on the object returns undefined
+      assert(emperor.nickname === undefined, "The emperor doesn't have a nickname");
+      // Accessing a property through a proxy detects that the property doesn't exist in our target object, so a warning message is returned.
+      assert(representative.nickname === "Don't bother the emperor", "The proxy jumps in when we make inproper requests");
+
+      // Adds a property through the proxy. The property is accessible both through
+      // the target object and through the proxy.
+      representative.nickname = "Tenno";
+      assert(emperor.nickname === "Tenno", "The emperor now has a nickname");
+      assert(representative.nickname === "Tenno", "The nickname is also accessible through the proxy");
+    </script>
+  </body>
+</html>
