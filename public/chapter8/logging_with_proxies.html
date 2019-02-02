@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a function that takes target object and makes it loggable
+      function makeLoggable(target) {
+        // Creates a new proxy with that target object
+        return new Proxy(target, {
+          // A get trap that logs property read
+          get: (target, property) => {
+            report("Reading " + property);
+            return target[property];
+          },
+
+          // A set trap that logs property writes
+          set: (target, property, value) => {
+            report("Writing value " + value + " to " + property);
+            target[property] = value;
+          }
+        });
+      }
+
+      // Create ninja object that will serve as our target object and make it loggable
+      let ninja = { name: "Yoshi" };
+      ninja = makeLoggable(ninja);
+
+      // Reads and writes to our proxy object. These actions will be logged by our proxy traps.
+      assert(ninja.name === "Yoshi", "ninja object name is Yoshi");
+      ninja.weapon = "Sword";
+    </script>
+  </body>
+</html>
