@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling access to objects</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Defines a primitive implementation of isPrime function
+      function isPrime(number) {
+        if(number < 2) { return false ; }
+
+        for(let i = 2; i < number; i++) {
+          if(number % i === 0) { return false; }
+        }
+
+        return true;
+      }
+
+      // Wraps a isPrime function within a proxy
+      isPrime = new Proxy(isPrime, {
+        // Provides an apply trap that will be called whenever a proxy is called as a function
+        apply: (target, thisArg, args) => {
+          // Starts a timer called is Prime
+          console.time("isPrime function for number " + args + " ran in");
+
+          // invokes target function
+          const result = target.apply(thisArg, args);
+
+          // Stops the timer and outputs the result
+          console.timeEnd("isPrime function for number " + args + " ran in");
+
+          return result;
+        }
+      });
+
+      // calls the function. The call works the same as if we'd called the original function.
+      isPrime(976575756);
+      isPrime(976575756435676543567897654456789765435678976549876546789087654678908765467897654356789765435678976543987654678765467876546786545678654678654678654);
+
+      rootFolder.ninjasDir.firstNinja.ninjaFile = 'yoshi.txt';
+
+      const rootFolder = new Folder();
+      rootFolder.ninjasDir = new Folder();
+      rootFolder.ninjasDir.firstNinja = new Folder();
+      rootFolder.ninjasDir.firstNinja.ninjaFile = 'yoshi.txt';
+    </script>
+  </body>
+</html>
