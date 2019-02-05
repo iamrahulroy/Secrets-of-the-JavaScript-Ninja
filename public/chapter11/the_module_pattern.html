@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chapter 11: Code modularization techniques</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      // Creates a global module variable and assigns the result of immediately invoking a function
+      const MouseCounterModule = function() {
+        // Creates a private module variable
+        let numClicks = 0;
+        // Creates a private module function
+        const handleClick = () => {
+          alert(++numClicks);
+        };
+
+        // Returns an objecft that represents the module's interface
+        // Through closures, we can access 'private' module variables and functions
+        return {
+          countClicks: () => {
+            document.addEventListner('click', handleClick);
+          }
+        };
+      }();
+
+      assert(typeof MouseCounterModule.countClicks === 'function', "We can access module functionality");
+      assert(typeof MouseCounterModule.numClicks === 'undefined'
+          && typeof MouseCounterModule.handleClick === 'undefined',
+             "We cannot access internal module details");
+    </script>
+  </body>
+</html>
