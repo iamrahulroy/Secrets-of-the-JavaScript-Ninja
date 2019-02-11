@@ -22,17 +22,18 @@
       const outerContainer = document.getElementById('outerContainer');
       const innerContainer = document.getElementById('innerContainer');
 
-      outerContainer.addEventListener('click', () => {
-        report('Outer container clicked');
+      innerContainer.addEventListener('click', function(event) {
+        report('innerContainer handler');
+        assert(this === innerContainer, 'This referes to the innerContainer')
+        assert(event.target === innerContainer, 'event.target refers to the innerContainer')
       });
 
-      innerContainer.addEventListener('click', () => {
-        report('Inner container clicked');
-      });
-
-      document.addEventListener('click', () => {
-        report('Document click');
-      });
+      outerContainer.addEventListener('click', function(event) {
+        report('outerContainer handler');
+        // this keyword refers to the outerContainer element, because this is the element on which the current handler has been registered
+        assert(this === outerContainer, 'This refers to the outerContainer');
+        assert(event.target === innerContainer, 'event.target refers to the innerContainer')
+      })
     </script>
   </body>
 </html>

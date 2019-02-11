@@ -8,19 +8,19 @@
 
     <style media="screen">
       #outerContainer { width: 100px; height: 100px; background-color: blue; }
-      #innnerContainer { width: 50px; height: 50px; background-color: red; }
+      #innerContainer { width: 50px; height: 50px; background-color: red; }
     </style>
   </head>
   <body>
 
     <div id="outerContainer">
-      <div id="innnerContainer"></div>
+      <div id="innerContainer"></div>
     </div>
 
     <script src="../assertion.js"></script>
     <script>
       const outerContainer = document.getElementById('outerContainer');
-      const innnerContainer = document.getElementById('innnerContainer');
+      const innerContainer = document.getElementById('innerContainer');
 
       window.addEventListener('click', () => {
         report('Window clicked');
@@ -37,7 +37,7 @@
       }, true);
 
       // passing in false as third argument enables bubbling.
-      innnerContainer.addEventListener('click', () => {
+      innerContainer.addEventListener('click', () => {
         report('Inner container clicked');
       }, false);
     </script>
