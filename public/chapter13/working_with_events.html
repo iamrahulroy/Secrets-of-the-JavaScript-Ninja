@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chapter 11: Code modularization techniques</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+  </head>
+  <body>
+    <div class='body'>
+      Test Result: <p id='results'></p>
+    </div>
+
+    <button id="myButton" type="button" name="button">Click</button>
+    <table>
+      <tbody>
+      </tbody>
+    </table>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const myButton = document.getElementById('myButton');
+      // Registers an event handler by using addEventListner method
+      myButton.addEventListener('click', function myHandler(event) {
+        // Accesses the element that the event has occurred on through the target property of the passed in event
+        assert(event.target === myButton, 'The target of the event is also myButton');
+
+        // Within the handler function, this refers to the element that has registered the handler.
+        assert(this === myButton, 'The handler is registered on myButton');
+
+        // Logs event object to inspect it in the js console
+        console.log(event);
+      });
+    </script>
+  </body>
+</html>
