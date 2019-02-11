@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chapter 11: Code modularization techniques</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../app.css">
+
+    <style media="screen">
+      #outerContainer { width: 100px; height: 100px; background-color: blue; }
+      #innnerContainer { width: 50px; height: 50px; background-color: red; }
+    </style>
+  </head>
+  <body>
+
+    <div id="outerContainer">
+      <div id="innnerContainer"></div>
+    </div>
+
+    <script src="../assertion.js"></script>
+    <script>
+      const outerContainer = document.getElementById('outerContainer');
+      const innnerContainer = document.getElementById('innnerContainer');
+
+      outerContainer.addEventListener('click', () => {
+        report('Outer container clicked');
+      });
+
+      innnerContainer.addEventListener('click', () => {
+        report('Inner container clicked');
+      });
+
+      document.addEventListener('click', () => {
+        report('Document click');
+      });
+    </script>
+  </body>
+</html>
